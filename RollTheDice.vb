@@ -2,7 +2,7 @@
 'RCET 0265
 'RollTheDice
 'Fall 2020
-'
+'https://github.com/IanGunter/Roll-The-Dice.git
 
 
 
@@ -13,42 +13,53 @@ Module RollTheDice
         Dim randomNumber As Integer
         Dim numberrolled(10) As Integer
         Dim text As String
-
-
         Randomize()
-
         Console.SetWindowSize(150, 40)
 
 
-        Console.WriteLine("Press enter to roll dice or type Q to quit")
+
+        Do
+
+            Console.WriteLine("Press enter to roll dice or type Q to quit")
         If Console.ReadLine = "Q" Then Exit Sub
 
-        For i = 1 To 1000
+            'Rolls dice 1000 times
+            For i = 1 To 1000
 
             randomNumber = CInt(GetRandomNumber(1, 6))
-            numberrolled(randomNumber - 2) += 1
-        Next
+                numberrolled(randomNumber - 2) += 1
 
-        For i = 2 To 12
+            Next
+
+            'Formats location for text on console.
+            For i = 2 To 12
             text = String.Format("{0, 10}", i) & "|"
-            Console.Write(text)
-        Next
+                Console.Write(text)
+
+            Next
+
+        Console.WriteLine()
+            'StrDup creates a specific amount of - for formatting console
+            Console.Write(StrDup(122, "-"))
 
         Console.WriteLine()
 
-        Console.Write(StrDup(122, "-"))
+            'Formats location for text on console.
+            For i = 0 To 10
+                text = String.Format("{0, 10}", numberrolled(i)) & "|"
+                Console.Write(text)
 
-        Console.WriteLine()
-
-        For i = 0 To 10
-            text = String.Format("{0, 10}", numberrolled(i)) & "|"
-            Console.Write(text)
-
-        Next
-        Console.ReadLine()
+            Next
+            Console.ReadLine()
+            'Erases Array then redims it
+            Erase numberrolled
+            ReDim numberrolled(10)
+            Console.Clear()
+        Loop
 
     End Sub
 
+    'Function Generates a random number.
     Function GetRandomNumber(ByVal minimum As Single,
                              ByVal maximum As Single) As Single
         Dim diceOne As Single
