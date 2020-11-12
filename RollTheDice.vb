@@ -4,8 +4,9 @@
 'Fall 2020
 'https://github.com/IanGunter/Roll-The-Dice.git
 
-
-
+Option Explicit On
+Option Compare Text
+Option Strict On
 
 Module RollTheDice
 
@@ -15,34 +16,28 @@ Module RollTheDice
         Dim text As String
         Randomize()
         Console.SetWindowSize(150, 40)
-
-
-
         Do
-
             Console.WriteLine("Press enter to roll dice or type Q to quit")
-        If Console.ReadLine = "Q" Then Exit Sub
+            If Console.ReadLine = "Q" Then Exit Sub
 
             'Rolls dice 1000 times
             For i = 1 To 1000
 
-            randomNumber = CInt(GetRandomNumber(1, 6))
+                randomNumber = CInt(GetRandomNumber(1, 6))
                 numberrolled(randomNumber - 2) += 1
-
             Next
 
             'Formats location for text on console.
             For i = 2 To 12
-            text = String.Format("{0, 10}", i) & "|"
+                text = String.Format("{0, 10}", i) & "|"
                 Console.Write(text)
-
             Next
 
-        Console.WriteLine()
+            Console.WriteLine()
             'StrDup creates a specific amount of - for formatting console
             Console.Write(StrDup(122, "-"))
 
-        Console.WriteLine()
+            Console.WriteLine()
 
             'Formats location for text on console.
             For i = 0 To 10
@@ -56,7 +51,6 @@ Module RollTheDice
             ReDim numberrolled(10)
             Console.Clear()
         Loop
-
     End Sub
 
     'Function Generates a random number.
@@ -66,8 +60,8 @@ Module RollTheDice
         Dim diceTwo As Single
         Dim diceTotal As Single
         Do
-            diceOne = ((maximum * Rnd()) + 0.5)
-            diceTwo = ((maximum * Rnd()) + 0.5)
+            diceOne = CInt(((maximum * Rnd()) + 0.5))
+            diceTwo = CInt(((maximum * Rnd()) + 0.5))
 
         Loop While diceOne < minimum - 0.5 Or diceOne >= maximum + 0.5 Or diceTwo < minimum - 0.5 Or diceTwo >= maximum + 0.5
 
@@ -75,6 +69,4 @@ Module RollTheDice
 
         Return CInt(diceTotal)
     End Function
-
-
 End Module
